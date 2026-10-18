@@ -15,6 +15,8 @@ const CONFIG = {
 
 const PAGE = document.body.dataset.page || "home";
 const LOCAL_BASE = CONFIG.folder;
+// jsDelivr 镜像 GitHub 原始文件，国内网络通常比 raw.githubusercontent.com 更容易访问
+const CDN_BASE = `https://cdn.jsdelivr.net/gh/${CONFIG.username}/${CONFIG.repo}@${CONFIG.branch}/${CONFIG.folder}`;
 const REMOTE_BASE = `https://raw.githubusercontent.com/${CONFIG.username}/${CONFIG.repo}/${CONFIG.branch}/${CONFIG.folder}`;
 const THEME_KEY = "yunhai-theme";
 const INTRO_KEY = "yunhai-intro-seen";
@@ -35,7 +37,7 @@ const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 
 const ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
-const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ESCAPES[c]);
+const escapeHtml = (value) => String(value == null ? "" : value).replace(/[&<>"']/g, (c) => ESCAPES[c]);
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 function debounce(fn, wait = 120) {
@@ -307,6 +309,17 @@ async function fetchText(url, timeout = 15000) {
     }
 }
 
+/* 出错时给出针对当前环境的提示 */
+function deployHint() {
+    if (location.protocol === "file:") {
+        return "你是直接双击打开的 index.html，浏览器会拦截本地文件请求，请用本地服务器预览。";
+    }
+    if (location.hostname.endsWith("github.io")) {
+        return "请确认仓库根目录有 .nojekyll 文件。没有它，GitHub Pages 会用 Jekyll 处理 posts 下的 .md，原始 Markdown 将无法通过网址访问。";
+    }
+    return "请检查网络，或确认 posts 目录与 list.json 的内容是否一致。";
+}
+
 function normalizeIndex(data) {
     if (!Array.isArray(data)) return [];
     return data
@@ -315,22 +328,53 @@ function normalizeIndex(data) {
         .map((name) => name.trim());
 }
 
+/* 同源优先，其次 jsDelivr，最后 raw；任何一层返回 HTML（Jekyll 处理过）都视为失败 */
+function looksLikeHtml(text) {
+    return /^\s*<(?:!doctype|html|head|body)/i.test(text);
+}
+
+async function fetchMarkdown(url) {
+    const text = await fetchText(url);
+    if (looksLikeHtml(text)) throw new Error("返回的是一张 HTML 页面，不是 Markdown");
+    return text;
+}
+
 async function resolveIndex() {
-    try {
-        const text = await fetchText(`${LOCAL_BASE}/list.json`);
-        return { names: normalizeIndex(JSON.parse(text)), base: LOCAL_BASE };
-    } catch (localError) {
-        const text = await fetchText(`${REMOTE_BASE}/list.json`);
-        return { names: normalizeIndex(JSON.parse(text)), base: REMOTE_BASE };
+    const sources = [
+        { url: `${LOCAL_BASE}/list.json`, base: LOCAL_BASE },
+        { url: `${CDN_BASE}/list.json`, base: CDN_BASE },
+        { url: `${REMOTE_BASE}/list.json`, base: REMOTE_BASE }
+    ];
+
+    let lastError = null;
+    for (const source of sources) {
+        try {
+            const text = await fetchText(source.url);
+            return { names: normalizeIndex(JSON.parse(text)), base: source.base };
+        } catch (error) {
+            lastError = error;
+        }
     }
+    throw lastError || new Error("无法读取文章索引");
 }
 
 async function fetchPostRaw(fileName, base = LOCAL_BASE) {
-    try {
-        return await fetchText(`${base}/${encodeURIComponent(fileName)}`);
-    } catch (localError) {
-        return await fetchText(`${REMOTE_BASE}/${encodeURIComponent(fileName)}`);
+    const encoded = encodeURIComponent(fileName);
+    const sources = [
+        `${base}/${encoded}`,
+        `${CDN_BASE}/${encoded}`,
+        `${REMOTE_BASE}/${encoded}`
+    ];
+
+    let lastError = null;
+    for (const url of sources) {
+        try {
+            return await fetchMarkdown(url);
+        } catch (error) {
+            lastError = error;
+        }
     }
+    throw lastError || new Error("无法读取文章");
 }
 
 async function loadPost(fileName, base = LOCAL_BASE) {
@@ -393,7 +437,7 @@ async function loadPosts() {
             renderState({
                 emoji: "alert",
                 title: "文章读取失败",
-                sub: "索引文件存在，但没有任何一篇文章成功加载，请检查文件路径与网络。",
+                sub: `索引文件存在，但没有任何一篇文章成功加载。${deployHint()}`,
                 action: { label: "重新加载", onClick: loadPosts }
             });
             updateMeta(0, "");
@@ -407,7 +451,7 @@ async function loadPosts() {
         renderState({
             emoji: "alert",
             title: "数据加载失败",
-            sub: `${error.message || "未知错误"}。如果你是本地直接双击打开 index.html，浏览器会拦截本地文件请求，请用本地服务器预览。`,
+            sub: `${error.message || "未知错误"}。${deployHint()}`,
             action: { label: "重新加载", onClick: loadPosts }
         });
         updateMeta(0, "");
