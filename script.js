@@ -148,6 +148,7 @@ function initTheme() {
         button.title = dark ? "切换浅色模式" : "切换深色模式";
         const meta = document.querySelector('meta[name="theme-color"]');
         if (meta) meta.setAttribute("content", dark ? "#0d0f13" : "#f1f3f7");
+        syncCommentsTheme();
     }
 }
 
@@ -172,12 +173,24 @@ function initAurora() {
     };
 
     const orbs = [
-        { ax: 0.18, ay: 0.22, r: 0.46, hue: 210, amp: 0.07, speed: 0.00011, phase: 0.0 },
-        { ax: 0.82, ay: 0.18, r: 0.40, hue: 272, amp: 0.055, speed: 0.00016, phase: 1.7 },
-        { ax: 0.74, ay: 0.80, r: 0.46, hue: 328, amp: 0.065, speed: 0.00009, phase: 3.1 },
-        { ax: 0.22, ay: 0.82, r: 0.40, hue: 166, amp: 0.075, speed: 0.00013, phase: 4.4 },
-        { ax: 0.52, ay: 0.46, r: 0.34, hue: 236, amp: 0.06, speed: 0.00007, phase: 2.4 }
+        { ax: 0.18, ay: 0.22, r: 0.46, hue: 210, amp: 0.085, speed: 0.00021, phase: 0.0 },
+        { ax: 0.82, ay: 0.18, r: 0.40, hue: 272, amp: 0.07, speed: 0.00028, phase: 1.7 },
+        { ax: 0.74, ay: 0.80, r: 0.46, hue: 328, amp: 0.08, speed: 0.00017, phase: 3.1 },
+        { ax: 0.22, ay: 0.82, r: 0.40, hue: 166, amp: 0.09, speed: 0.00024, phase: 4.4 },
+        { ax: 0.52, ay: 0.46, r: 0.34, hue: 236, amp: 0.075, speed: 0.00014, phase: 2.4 }
     ];
+
+    // 缓慢上升的微光粒子，让背景始终“在动”
+    const motes = Array.from({ length: 28 }, () => ({
+        x: Math.random(),
+        y: Math.random(),
+        r: 0.8 + Math.random() * 1.8,
+        speed: 0.002 + Math.random() * 0.006,
+        sway: 6 + Math.random() * 20,
+        phase: Math.random() * Math.PI * 2,
+        hue: 190 + Math.random() * 120,
+        alpha: 0.16 + Math.random() * 0.34
+    }));
 
     function resize() {
         dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -253,6 +266,20 @@ function initAurora() {
         }
         pointer.x += (pointer.tx - pointer.x) * 0.075;
         pointer.y += (pointer.ty - pointer.y) * 0.075;
+
+        // 微光粒子
+        const seconds = time / 1000;
+        motes.forEach((mote) => {
+            const y = (((mote.y - seconds * mote.speed) % 1) + 1) % 1 * height;
+            const x = mote.x * width + Math.sin(seconds * 0.25 + mote.phase) * mote.sway;
+            const twinkle = 0.6 + 0.4 * Math.sin(seconds * 0.8 + mote.phase);
+            ctx.globalAlpha = Math.min(1, mote.alpha * twinkle * (dark ? 1 : 0.8));
+            ctx.fillStyle = `hsl(${mote.hue}, ${dark ? 85 : 72}%, ${dark ? 74 : 56}%)`;
+            ctx.beginPath();
+            ctx.arc(x, y, mote.r, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        ctx.globalAlpha = 1;
 
         ctx.globalCompositeOperation = dark ? "lighter" : "source-over";
         const hue = (time * 0.014) % 360;
@@ -405,10 +432,40 @@ async function loadPost(fileName, base = LOCAL_BASE) {
 }
 
 /* ==================== 6. 首页渲染 ==================== */
+/* 构建产物：一次请求拿到全部文章元数据与正文，避免 N+1 请求 */
+async function loadBuiltIndex() {
+    const text = await fetchText(`${LOCAL_BASE}/index.json`);
+    const data = JSON.parse(text);
+    if (!Array.isArray(data) || !data.length) throw new Error("index.json 为空");
+    return data.map((item) => ({
+        file: item.file,
+        slug: item.slug,
+        title: item.title,
+        description: item.description || "",
+        tags: Array.isArray(item.tags) ? item.tags : [],
+        date: parseDate(item.date),
+        body: "",
+        plain: item.plain || "",
+        reading: item.reading || 1,
+        url: item.url || ""
+    }));
+}
+
 async function loadPosts() {
     renderSkeletons();
     state.loading = true;
     updateMeta(0, "");
+
+    try {
+        const built = await loadBuiltIndex();
+        state.base = LOCAL_BASE;
+        state.posts = built.sort((a, b) => (b.date ? b.date.getTime() : 0) - (a.date ? a.date.getTime() : 0));
+        state.loading = false;
+        renderPosts(state.posts);
+        return;
+    } catch (builtError) {
+        /* 还没跑构建时（本地开发），回落到 list.json + 逐篇读取 */
+    }
 
     try {
         const { names, base } = await resolveIndex();
@@ -508,7 +565,7 @@ function renderPosts(posts) {
 function createCard(post, index) {
     const card = document.createElement("a");
     card.className = "post-card";
-    card.href = `post.html?p=${encodeURIComponent(post.file)}`;
+    card.href = post.url || `post.html?p=${encodeURIComponent(post.file)}`;
     card.style.setProperty("--i", Math.min(index, 12));
 
     const tokens = state.matchTokens;
@@ -874,6 +931,149 @@ function applyTagFromQuery() {
 }
 
 /* ==================== 8. 文章页 ==================== */
+/* 静态文章页：内容已在 HTML 里，只做增强 */
+function initStaticPost() {
+    const article = $("#article-detail");
+    if (!article) return;
+    enhanceArticle(article);
+    initComments();
+    state.articleReady = true;
+    updateScrollUi();
+}
+
+/* 评论（Utterances）跟随明暗主题 */
+const UTTERANCES_ORIGIN = "https://utteranc.es";
+
+function syncCommentsTheme() {
+    const frame = $("iframe.utterances-frame");
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.postMessage({
+        type: "set-theme",
+        theme: document.documentElement.dataset.theme === "dark" ? "github-dark" : "github-light"
+    }, UTTERANCES_ORIGIN);
+}
+
+function initComments() {
+    const host = $(".utterances");
+    if (!host) return;
+
+    const current = document.documentElement.dataset.theme === "dark" ? "github-dark" : "github-light";
+    const config = $('script[src*="utteranc.es/client.js"]');
+    if (config) config.setAttribute("theme", current);
+
+    // iframe 内部的监听要等脚本执行完才就绪，前几次消息可能丢失，所以持续补发
+    let attempts = 0;
+    const timer = window.setInterval(() => {
+        attempts += 1;
+        if ($("iframe.utterances-frame")) syncCommentsTheme();
+        if (attempts >= 15) window.clearInterval(timer);
+    }, 500);
+}
+
+function enhanceArticle(container) {
+    highlightCode(container);
+    addCopyButtons(container);
+    initTocSpy();
+}
+
+function highlightCode(container) {
+    if (!window.hljs) return;
+    container.querySelectorAll("pre code").forEach((block) => {
+        if (block.dataset.highlighted === "yes") return;
+        try {
+            window.hljs.highlightElement(block);
+        } catch (error) {
+            /* 高亮失败不影响阅读 */
+        }
+    });
+}
+
+function addCopyButtons(container) {
+    container.querySelectorAll("pre").forEach((pre) => {
+        if (pre.parentElement && pre.parentElement.classList.contains("code-block")) return;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-block";
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const code = pre.querySelector("code");
+        const language = code
+            ? [...code.classList].find((name) => name.startsWith("language-"))
+            : "";
+        const label = language ? language.replace("language-", "") : "";
+
+        const bar = document.createElement("div");
+        bar.className = "code-bar";
+        bar.innerHTML = `<span class="code-lang">${escapeHtml(label)}</span>`;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "code-copy";
+        button.textContent = "复制";
+        bar.appendChild(button);
+
+        button.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(code ? code.innerText : pre.innerText);
+                button.textContent = "已复制";
+            } catch (error) {
+                button.textContent = "复制失败";
+            }
+            setTimeout(() => { button.textContent = "复制"; }, 1600);
+        });
+
+        wrapper.appendChild(bar);
+    });
+}
+
+function initTocSpy() {
+    const links = $$(".toc a[href^='#']");
+    if (!links.length) return;
+
+    const entries = links
+        .map((link) => {
+            const id = decodeURIComponent(link.getAttribute("href").slice(1));
+            return { link, heading: document.getElementById(id) };
+        })
+        .filter((entry) => entry.heading);
+    if (!entries.length) return;
+
+    const update = () => {
+        const offset = 120;
+        let current = entries[0];
+
+        for (const entry of entries) {
+            if (entry.heading.getBoundingClientRect().top <= offset) {
+                current = entry;
+            } else {
+                break;
+            }
+        }
+
+        // 滚到底部时点亮最后一条
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8) {
+            current = entries[entries.length - 1];
+        }
+
+        entries.forEach((entry) => {
+            entry.link.classList.toggle("is-active", entry === current);
+        });
+    };
+
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            update();
+            ticking = false;
+        });
+    }, { passive: true });
+
+    window.addEventListener("resize", debounce(update, 120));
+    update();
+}
+
 async function initPostPage() {
     const article = $("#article-detail");
     const fileName = new URLSearchParams(location.search).get("p");
@@ -899,6 +1099,7 @@ async function initPostPage() {
 
         document.title = `${post.title} · 云海阁`;
         article.innerHTML = buildArticleHtml(post);
+        enhanceArticle(article);
         state.articleReady = true;
         updateScrollUi();
 
@@ -1291,6 +1492,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (PAGE === "post") {
         initPostPage();
+        return;
+    }
+
+    if (PAGE === "post-static") {
+        initStaticPost();
+        return;
+    }
+
+    if (PAGE === "page") {
         return;
     }
 
