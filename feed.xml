@@ -5,9 +5,16 @@
         <link>https://yunshuifuyao-ship-it.github.io/my-blog/</link>
         <description>把代码、阅读，还有那些一闪而过的念头，收进一片云海。</description>
         <language>zh-CN</language>
-        <lastBuildDate>Sat, 10 Oct 2026 04:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 19 Oct 2026 04:00:00 GMT</lastBuildDate>
         <atom:link href="https://yunshuifuyao-ship-it.github.io/my-blog/feed.xml" rel="self" type="application/rss+xml" />
         
+        <item>
+            <title>写给未来的自己：大三、考研，和一些没处安放的话</title>
+            <link>https://yunshuifuyao-ship-it.github.io/my-blog/post/kaoyan/</link>
+            <guid isPermaLink="true">https://yunshuifuyao-ship-it.github.io/my-blog/post/kaoyan/</guid>
+            <pubDate>Mon, 19 Oct 2026 04:00:00 GMT</pubDate>
+            <description>前路看不清楚。写给未来的自己，随时可以回来评价、批判。</description>
+        </item>
         <item>
             <title>关于我</title>
             <link>https://yunshuifuyao-ship-it.github.io/my-blog/post/about/</link>
