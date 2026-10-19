@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 · 云海阁</title>
+    <meta name="description" content="关于名字的来历、互联网、成长，还有那点还没找到的「心气」。">
+    <link rel="canonical" href="https://yunshuifuyao-ship-it.github.io/my-blog/post/about/">
+    <meta name="theme-color" content="#f1f3f7">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="云海阁">
+    <meta property="og:title" content="关于我 · 云海阁">
+    <meta property="og:description" content="关于名字的来历、互联网、成长，还有那点还没找到的「心气」。">
+    <meta property="og:url" content="https://yunshuifuyao-ship-it.github.io/my-blog/post/about/">
+    <meta property="og:image" content="https://yunshuifuyao-ship-it.github.io/my-blog/%E5%A4%B4%E5%83%8F.jpeg">
+    <meta property="article:published_time" content="2026-10-10">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23c94b3f'/%3E%3Cstop offset='1' stop-color='%239a2721'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M20 42a8 8 0 0 1 .8-15.96 11 11 0 0 1 21.2 2.2A7.5 7.5 0 0 1 44 42z' fill='white' opacity='.96'/%3E%3C/svg%3E">
+    <link rel="alternate" type="application/rss+xml" title="云海阁" href="../../feed.xml">
+    <link rel="preload" href="../../assets/yun-brush.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body data-page="post-static">
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"><span></span></div>
+
+    <div class="app">
+        <header class="navbar" id="navbar">
+            <div class="nav-inner">
+                <a class="brand" href="../../index.html" aria-label="云海阁 · 返回首页">
+                    <span class="brand-mark" aria-hidden="true">云</span>
+                    <span class="brand-text">云海阁</span>
+                </a>
+                <nav class="nav-links" aria-label="主导航">
+                    <a class="nav-link" href="../../index.html">首页</a>
+                    <a class="nav-link" href="../../archive.html">归档</a>
+                    <a class="nav-link" href="https://space.bilibili.com/234841081" target="_blank" rel="noopener">B站</a>
+                    <a class="nav-link" href="https://github.com/yunshuifuyao-ship-it/my-blog" target="_blank" rel="noopener">GitHub</a>
+                    <button class="theme-btn" id="theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式">
+                        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                            <circle cx="12" cy="12" r="4.2"></circle>
+                            <path d="M12 2.2v2.1M12 19.7v2.1M2.2 12h2.1M19.7 12h2.1M5.1 5.1l1.5 1.5M17.4 17.4l1.5 1.5M18.9 5.1l-1.5 1.5M6.6 17.4l-1.5 1.5"></path>
+                        </svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7z"></path>
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="article-toolbar article-toolbar--wide">
+                <a class="btn-back" href="../../index.html">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M15 5l-7 7 7 7"></path>
+                    </svg>
+                    返回列表
+                </a>
+                <button class="btn-ghost" id="copy-link" type="button">复制链接</button>
+            </div>
+
+            <details class="toc-mobile">
+                       <summary>目录 · 6 节</summary>
+                       <ol class="toc-list"><li class="toc-item toc-h2"><a href="#关于网名">关于网名</a></li><li class="toc-item toc-h2"><a href="#关于互联网">关于互联网</a></li><li class="toc-item toc-h2"><a href="#线上与线下">线上与线下</a></li><li class="toc-item toc-h2"><a href="#成长经历">成长经历</a></li><li class="toc-item toc-h2"><a href="#那点心气">那点心气</a></li><li class="toc-item toc-h2"><a href="#最后">最后</a></li></ol>
+                   </details>
+
+            <div class="post-layout">
+                <article id="article-detail" class="article-surface markdown-body">
+                    <header class="article-header">
+                        <h1>关于我</h1>
+                        <div class="article-meta">
+                            <span class="meta-item"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg>2026年10月10日</span>
+                            <span class="meta-sep"></span>
+                            <span class="meta-item"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>3 分钟阅读</span>
+                        </div>
+                        <div class="article-tags">
+        <a class="tag" href="../../index.html?tag=%E9%9A%8F%E7%AC%94">随笔</a><a class="tag" href="../../index.html?tag=%E5%85%B3%E4%BA%8E">关于</a>
+    </div>
+                    </header>
+                    <p>你好啊，路过的旅客。这里是云水扶摇，男，今年二十岁，目前还是个学生，自称云海（水）遥阁主。</p>
+<h2 id="关于网名">关于网名</h2>
+<p>网名取自李白。《梦游天姥吟留别》里写「云青青兮欲雨，水澹澹兮生烟」，「扶摇」二字则来自《上李邕》的「大鹏一日同风起，扶摇直上九万里」。</p>
+<p>连起来读，谐音是运、顺、福、耀。也许这算是我对自己的未来和道路，保持着一种微渺孤鸿的乐观和自信。</p>
+<h2 id="关于互联网">关于互联网</h2>
+<p>互联网上的很多东西都是真假参半的。我或许喜欢它被美化的一面，也不奢求能找到真实的那一面——很多道理大家心里都明白，懂的都懂。</p>
+<p>互联网有各种人，有些人戾气过重，看什么都要插一句嘴。我想说的话，有些人肯定说过了，我想做的事，肯定有人也做过了。无论这个博客有什么内容，我都把它当做是我一次偶然的思考、一次不经意间的念头，这个博客只希望可以记录对个人一些有意义的事或念头。我不是什么圣贤，我也有自己的情绪，不要说我过于清高拿显微镜天天去鸡蛋骨头里面挑错。</p>
+<p>我有自己的底线，我不会公开去评价、拉踩某些比较敏感的话题。至于我的家境也就那样，也别有人跑来替我解锁什么富豪少爷的人生。有些东西放在虚拟的互联网上讨论跟人争辩，本身没有任何意义。</p>
+<h2 id="线上与线下">线上与线下</h2>
+<p>平日里在线上，我大概算得上矫揉造作。回到三次元，我不太喜欢和人开玩笑，比较较真——但这不意味着我过于认真负责。事实上，在同龄人眼里我的较真可能会显得有点蠢。</p>
+<p>总体而言我是一个平易近人的人，我愿意花时间去了解、去改正、完善自己。至少我自己负责的项目，我会尽最大努力，哪怕它并不完美。毕竟月有阴晴圆缺，人世间那么多悲欢离合。</p>
+<p>可能很多话得掰开揉碎地说。我会尽我所能把一句话的意思表达清楚，表达明确没有歧义或贬义。</p>
+<h2 id="成长经历">成长经历</h2>
+<p>我的成长经历大概和多数人不太一样。家乡在山河四省的河南省，小学时随父母搬迁到福建生活。童年的玩伴换了一批又一批，很多事情、很多东西，都要在新环境里不断适应。但记忆里几乎是还没适应完就换一个环境，虽然我习惯了这样的生活，见到了各种各样的人和事情。</p>
+<p>但偏偏我先天性性格慢热，很难和别人更深入地交心问话。有时候我会在互联网上向陌生人流露出自己的情绪，情绪下去了又会矛盾地批判自己：这样的心理，是否符合我。这样的性格，是不是真实的我自己呢？我可能会归咎于年轻气盛，但也尽可能保持克制。</p>
+<p>我对「存在」这个概念的理解可能并不深。老师或同学因为某些事念到我的名字时，我偶尔会发愣一会儿——这件事明明不是我的意思，为什么在其他人看来会是如此？我也尽量去学会站在其他人的角度看待问题本身，回到事情一开始本身 ，从基本的事实进行推理、发现、认知、感悟。所有事情或人都有它的根基，我想不断提升能力去寻找自己的根。</p>
+<h2 id="那点心气">那点心气</h2>
+<p>我初次对每个人都是一样的，不会在意ta的过去或者和其他人的矛盾。跟人交流到一些感兴趣的话题，我时常会羡慕别人的生活和体验，会想：为什么自己没有过这样的生活，为什么自己对这件事没有这样的心得体会呢？</p>
+<p>关于这个答案，我目前认为我可能是缺少一点「心气」。正是很多事没体验过，就逐渐丧失了对这些事情本身的追求的心和热爱。别人的爱好我未必理解，但我保持尊重，不会去评价。</p>
+<p>有句话是说，人总会美化自己没走过的道路。可事实上，你会做出这个选择，已经是所有因素叠加之后的结果。再怎么后悔自己没做过道路都改变不了已经定下来的结局，内耗自己是没有用的。与其不断想回到过去，还不如往前往高处走，所有事情都是螺旋曲折上升式的进步。</p>
+<h2 id="最后">最后</h2>
+<p>现在是你未来的过去，改变现在（过去）就是改变未来。有些事情背后的成因过于复杂，只会有时间给你答案，毕竟日久见人心。</p>
+<p>我既然能活到现在，大概也有什么东西是我所追求、所向往的，只是我暂时还没有发现罢了。真心祝愿这个世界可以往美好的方向发展！</p>
+<blockquote>
+<p>你既然读到这里，祝你生活愉快！万事如意！</p>
+</blockquote>
+
+                    
+                </article>
+
+                <aside class="toc" aria-label="文章目录">
+                       <p class="toc-title">目录</p>
+                       <ol class="toc-list"><li class="toc-item toc-h2"><a href="#关于网名">关于网名</a></li><li class="toc-item toc-h2"><a href="#关于互联网">关于互联网</a></li><li class="toc-item toc-h2"><a href="#线上与线下">线上与线下</a></li><li class="toc-item toc-h2"><a href="#成长经历">成长经历</a></li><li class="toc-item toc-h2"><a href="#那点心气">那点心气</a></li><li class="toc-item toc-h2"><a href="#最后">最后</a></li></ol>
+                   </aside>
+            </div>
+
+            <section class="comments" id="comments" aria-label="评论">
+                <h2 class="comments-title">评论</h2>
+                <p class="comments-hint">使用 GitHub 账号登录后即可留言，评论会同步到仓库的 Issues。</p>
+                <div class="utterances"></div>
+                <script src="https://utteranc.es/client.js"
+                        repo="yunshuifuyao-ship-it/my-blog"
+                        issue-term="pathname"
+                        label="comment"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                </script>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="https://space.bilibili.com/234841081" target="_blank" rel="noopener">Bilibili</a>
+                <a href="https://github.com/yunshuifuyao-ship-it/my-blog" target="_blank" rel="noopener">GitHub</a>
+                <a href="../../archive.html">归档</a>
+                <a href="../../tags.html">标签</a>
+                <a href="../../feed.xml">RSS</a>
+            </div>
+            <p>© <span id="year">2026</span> 云水扶摇 · 在这个世界有一束光，就能为任何人照亮</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js" defer></script>
+    <script src="../../script.js"></script>
+</body>
+</html>
