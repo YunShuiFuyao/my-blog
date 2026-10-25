@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>云海阁</title>
-        <link>https://yunshuifuyao-ship-it.github.io/my-blog/</link>
+        <link>https://yunshuifuyao.github.io/my-blog/</link>
         <description>把代码、阅读，还有那些一闪而过的念头，收进一片云海。</description>
         <language>zh-CN</language>
         <lastBuildDate>Mon, 19 Oct 2026 04:00:00 GMT</lastBuildDate>
-        <atom:link href="https://yunshuifuyao-ship-it.github.io/my-blog/feed.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://yunshuifuyao.github.io/my-blog/feed.xml" rel="self" type="application/rss+xml" />
         
         <item>
             <title>一些没处安放的话</title>
-            <link>https://yunshuifuyao-ship-it.github.io/my-blog/post/kaoyan/</link>
-            <guid isPermaLink="true">https://yunshuifuyao-ship-it.github.io/my-blog/post/kaoyan/</guid>
+            <link>https://yunshuifuyao.github.io/my-blog/post/kaoyan/</link>
+            <guid isPermaLink="true">https://yunshuifuyao.github.io/my-blog/post/kaoyan/</guid>
             <pubDate>Mon, 19 Oct 2026 04:00:00 GMT</pubDate>
             <description>前路看不清楚。写给未来的自己，随时可以回来评价、批判。</description>
         </item>
         <item>
             <title>关于我</title>
-            <link>https://yunshuifuyao-ship-it.github.io/my-blog/post/about/</link>
-            <guid isPermaLink="true">https://yunshuifuyao-ship-it.github.io/my-blog/post/about/</guid>
+            <link>https://yunshuifuyao.github.io/my-blog/post/about/</link>
+            <guid isPermaLink="true">https://yunshuifuyao.github.io/my-blog/post/about/</guid>
             <pubDate>Sat, 10 Oct 2026 04:00:00 GMT</pubDate>
             <description>关于名字的来历、互联网、成长，还有那点还没找到的「心气」。</description>
         </item>
