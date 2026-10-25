@@ -56,7 +56,7 @@ const FALLBACK_TEMPLATES = {
                     <a class="nav-link" href="../../index.html">首页</a>
                     <a class="nav-link" href="../../archive.html">归档</a>
                     <a class="nav-link" href="https://space.bilibili.com/234841081" target="_blank" rel="noopener">B站</a>
-                    <a class="nav-link" href="https://github.com/yunshuifuyao-ship-it/my-blog" target="_blank" rel="noopener">GitHub</a>
+                    <a class="nav-link" href="https://github.com/YunShuiFuyao/my-blog" target="_blank" rel="noopener">GitHub</a>
                     <button class="theme-btn" id="theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式">
                         <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
                             <circle cx="12" cy="12" r="4.2"></circle>
@@ -106,7 +106,7 @@ const FALLBACK_TEMPLATES = {
                 <p class="comments-hint">使用 GitHub 账号登录后即可留言，评论会同步到仓库的 Issues。</p>
                 <div class="utterances"></div>
                 <script src="https://utteranc.es/client.js"
-                        repo="yunshuifuyao-ship-it/my-blog"
+                        repo="YunShuiFuyao/my-blog"
                         issue-term="pathname"
                         label="comment"
                         theme="github-light"
@@ -119,7 +119,7 @@ const FALLBACK_TEMPLATES = {
         <footer class="site-footer">
             <div class="footer-links">
                 <a href="https://space.bilibili.com/234841081" target="_blank" rel="noopener">Bilibili</a>
-                <a href="https://github.com/yunshuifuyao-ship-it/my-blog" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://github.com/YunShuiFuyao/my-blog" target="_blank" rel="noopener">GitHub</a>
                 <a href="../../archive.html">归档</a>
                 <a href="../../tags.html">标签</a>
                 <a href="../../feed.xml">RSS</a>
@@ -170,7 +170,7 @@ const FALLBACK_TEMPLATES = {
                     <a class="nav-link" href="{{ROOT}}index.html">首页</a>
                     <a class="nav-link" href="{{ROOT}}archive.html">归档</a>
                     <a class="nav-link" href="https://space.bilibili.com/234841081" target="_blank" rel="noopener">B站</a>
-                    <a class="nav-link" href="https://github.com/yunshuifuyao-ship-it/my-blog" target="_blank" rel="noopener">GitHub</a>
+                    <a class="nav-link" href="https://github.com/YunShuiFuyao/my-blog" target="_blank" rel="noopener">GitHub</a>
                     <button class="theme-btn" id="theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式">
                         <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
                             <circle cx="12" cy="12" r="4.2"></circle>
@@ -191,7 +191,7 @@ const FALLBACK_TEMPLATES = {
         <footer class="site-footer">
             <div class="footer-links">
                 <a href="https://space.bilibili.com/234841081" target="_blank" rel="noopener">Bilibili</a>
-                <a href="https://github.com/yunshuifuyao-ship-it/my-blog" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://github.com/YunShuiFuyao/my-blog" target="_blank" rel="noopener">GitHub</a>
                 <a href="{{ROOT}}archive.html">归档</a>
                 <a href="{{ROOT}}tags.html">标签</a>
                 <a href="{{ROOT}}feed.xml">RSS</a>

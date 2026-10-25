@@ -7,7 +7,7 @@
 
 /* ==================== 1. 配置与工具 ==================== */
 const CONFIG = {
-    username: "yunshuifuyao-ship-it",
+    username: "YunShuiFuyao",
     repo: "my-blog",
     branch: "main",
     folder: "posts"
