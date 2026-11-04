@@ -961,13 +961,26 @@ function initComments() {
     const config = $('script[src*="utteranc.es/client.js"]');
     if (config) config.setAttribute("theme", current);
 
-    // iframe 内部的监听要等脚本执行完才就绪，前几次消息可能丢失，所以持续补发
-    let attempts = 0;
-    const timer = window.setInterval(() => {
-        attempts += 1;
-        if ($("iframe.utterances-frame")) syncCommentsTheme();
-        if (attempts >= 15) window.clearInterval(timer);
-    }, 500);
+    const bind = (frame) => {
+        // 等 iframe 自己的监听就绪后再同步一次，避免只发到半路
+        frame.addEventListener("load", () => syncCommentsTheme(), { once: true });
+        window.setTimeout(() => syncCommentsTheme(), 700);
+    };
+
+    const existing = $("iframe.utterances-frame");
+    if (existing) {
+        bind(existing);
+        return;
+    }
+
+    const observer = new MutationObserver(() => {
+        const frame = $("iframe.utterances-frame");
+        if (!frame) return;
+        observer.disconnect();
+        bind(frame);
+    });
+    observer.observe(host, { childList: true, subtree: true });
+    window.setTimeout(() => observer.disconnect(), 8000);
 }
 
 function enhanceArticle(container) {
@@ -1050,7 +1063,6 @@ function initTocSpy() {
             }
         }
 
-        // 滚到底部时点亮最后一条
         if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8) {
             current = entries[entries.length - 1];
         }
@@ -1275,149 +1287,6 @@ function inline(text) {
         .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
         .replace(/\*([^*]+)\*/g, "<em>$1</em>")
         .replace(/~~([^~]+)~~/g, "<del>$1</del>");
-}
-
-/* ==================== 9. 公共交互 ==================== */
-function splitChars(element) {
-    if (!element) return;
-    const text = element.textContent.trim();
-    element.textContent = "";
-    [...text].forEach((char, index) => {
-        const span = document.createElement("span");
-        span.className = "ch";
-        span.style.setProperty("--i", index);
-        span.textContent = char;
-        element.appendChild(span);
-    });
-}
-
-/* 把印章从页面中央送到导航栏，用 FLIP 换算位移与缩放 */
-function flySealToBrand(intro) {
-    const seal = $(".intro-mark", intro);
-    const brand = $(".brand-mark");
-    if (!seal || !brand) return;
-
-    const from = seal.getBoundingClientRect();
-    const to = brand.getBoundingClientRect();
-    if (!from.width || !to.width) return;
-
-    const clone = seal.cloneNode(true);
-    clone.classList.add("intro-mark-fly");
-    clone.style.animation = "none";
-    clone.style.left = `${from.left}px`;
-    clone.style.top = `${from.top}px`;
-    clone.style.width = `${from.width}px`;
-    clone.style.height = `${from.height}px`;
-    document.body.appendChild(clone);
-
-    seal.style.opacity = "0";
-    brand.style.opacity = "0";
-
-    const dx = (to.left + to.width / 2) - (from.left + from.width / 2);
-    const dy = (to.top + to.height / 2) - (from.top + from.height / 2);
-    const scale = to.width / from.width;
-
-    const animation = clone.animate(
-        [
-            { transform: "translate(0px, 0px) scale(1) rotate(-3deg)" },
-            { transform: `translate(${dx}px, ${dy}px) scale(${scale}) rotate(0deg)` }
-        ],
-        { duration: 780, easing: "cubic-bezier(0.22, 0.61, 0.36, 1)", fill: "forwards" }
-    );
-
-    animation.onfinish = () => {
-        clone.remove();
-        brand.style.opacity = "";
-    };
-}
-
-function seedParticles(layer) {
-    if (!layer) return;
-    for (let i = 0; i < 18; i += 1) {
-        const dot = document.createElement("span");
-        const size = (2 + Math.random() * 4).toFixed(1);
-        dot.style.left = `${(Math.random() * 100).toFixed(2)}%`;
-        dot.style.top = `${(14 + Math.random() * 72).toFixed(2)}%`;
-        dot.style.width = `${size}px`;
-        dot.style.height = `${size}px`;
-        dot.style.setProperty("--d", `${(Math.random() * 2.6).toFixed(2)}s`);
-        dot.style.setProperty("--t", `${(3.2 + Math.random() * 2.8).toFixed(2)}s`);
-        dot.style.setProperty("--h", String(185 + Math.floor(Math.random() * 90)));
-        layer.appendChild(dot);
-    }
-}
-
-function initIntro() {
-    const intro = $("#intro");
-    if (!intro) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let seen = false;
-    try {
-        seen = sessionStorage.getItem(INTRO_KEY) === "1";
-    } catch (error) {
-        seen = false;
-    }
-
-    if (reduceMotion || seen) {
-        intro.remove();
-        return;
-    }
-
-    const root = document.documentElement;
-    root.classList.add("is-intro");
-    splitChars($(".intro-name", intro));
-    splitChars($(".intro-motto", intro));
-    seedParticles($(".intro-particles", intro));
-
-    let leaving = false;
-    let finished = false;
-
-    const finish = () => {
-        if (finished) return;
-        finished = true;
-        root.classList.remove("is-intro");
-        intro.remove();
-        const brand = $(".brand-mark");
-        if (brand) brand.style.opacity = "";
-        try {
-            sessionStorage.setItem(INTRO_KEY, "1");
-        } catch (error) {
-            /* 隐私模式下忽略 */
-        }
-    };
-
-    const leave = (fast) => {
-        if (leaving || finished) return;
-        leaving = true;
-        if (!fast) flySealToBrand(intro);
-        intro.classList.add("is-leaving");
-        if (fast) intro.classList.add("is-fast");
-        // 遮罩淡出后立即解锁滚动；等内容的浮起动画播完再移除节点，避免最后一帧跳动
-        window.setTimeout(() => root.classList.remove("is-intro"), fast ? 400 : 900);
-        window.setTimeout(finish, fast ? 520 : 1450);
-    };
-
-    const timer = window.setTimeout(() => leave(false), 1700);
-
-    const skip = () => {
-        window.clearTimeout(timer);
-        leave(true);
-    };
-
-    ["pointerdown", "wheel", "keydown", "touchstart"].forEach((type) => {
-        window.addEventListener(type, skip, { once: true, passive: true });
-    });
-
-    // 兜底：万一动画事件没触发，也能收场
-    window.setTimeout(() => {
-        if (finished) return;
-        finished = true;
-        root.classList.remove("is-intro");
-        intro.remove();
-        const brand = $(".brand-mark");
-        if (brand) brand.style.opacity = "";
-    }, 4200);
 }
 
 function initScrollEffects() {
