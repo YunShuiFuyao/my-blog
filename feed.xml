@@ -23,7 +23,7 @@
             <description>朝花夕拾于十八岁的盛夏和二十一岁的深冬</description>
         </item>
         <item>
-            <title>一些没处安放的话</title>
+            <title>写给未来的自己：大三、考研，和一些没处安放的话</title>
             <link>https://yunshuifuyao.github.io/my-blog/post/kaoyan/</link>
             <guid isPermaLink="true">https://yunshuifuyao.github.io/my-blog/post/kaoyan/</guid>
             <pubDate>Mon, 19 Oct 2026 04:00:00 GMT</pubDate>
@@ -35,6 +35,13 @@
             <guid isPermaLink="true">https://yunshuifuyao.github.io/my-blog/post/about/</guid>
             <pubDate>Sat, 10 Oct 2026 04:00:00 GMT</pubDate>
             <description>关于名字的来历、互联网、成长，还有那点还没找到的「心气」。</description>
+        </item>
+        <item>
+            <title>你好！路过的客人</title>
+            <link>https://yunshuifuyao.github.io/my-blog/post/Test/</link>
+            <guid isPermaLink="true">https://yunshuifuyao.github.io/my-blog/post/Test/</guid>
+            <pubDate>Sat, 30 May 2026 04:00:00 GMT</pubDate>
+            <description>这是简介！</description>
         </item>
     </channel>
 </rss>
