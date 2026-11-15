@@ -1767,6 +1767,36 @@ a.tag:hover {
     text-align: center;
 }
 
+.footer-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 12px;
+    margin-bottom: 8px;
+    color: var(--text-3);
+    font-size: 0.78rem;
+    letter-spacing: 0.01em;
+}
+
+.footer-contact a {
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-contact a:hover {
+    color: var(--accent);
+}
+
+.footer-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.45;
+}
+
 .footer-links {
     display: flex;
     flex-wrap: wrap;
