@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研启序曲 · 云海阁</title>
+    <meta name="description" content="未抵开满荼蘼花的终点。为什么考研、生化环材的尽头、双非与 92、换一条路，以及写给自己的动员。">
+    <link rel="canonical" href="https://yunshuifuyao.github.io/my-blog/post/yanqi/">
+    <meta name="theme-color" content="#f1f3f7">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="云海阁">
+    <meta property="og:title" content="研启序曲 · 云海阁">
+    <meta property="og:description" content="未抵开满荼蘼花的终点。为什么考研、生化环材的尽头、双非与 92、换一条路，以及写给自己的动员。">
+    <meta property="og:url" content="https://yunshuifuyao.github.io/my-blog/post/yanqi/">
+    <meta property="og:image" content="https://yunshuifuyao.github.io/my-blog/%E5%A4%B4%E5%83%8F.jpeg">
+    <meta property="article:published_time" content="2026-11-20">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23c94b3f'/%3E%3Cstop offset='1' stop-color='%239a2721'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M20 42a8 8 0 0 1 .8-15.96 11 11 0 0 1 21.2 2.2A7.5 7.5 0 0 1 44 42z' fill='white' opacity='.96'/%3E%3C/svg%3E">
+    <link rel="alternate" type="application/rss+xml" title="云海阁" href="../../feed.xml">
+    <link rel="preload" href="../../assets/yun-brush.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body data-page="post-static">
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"><span></span></div>
+
+    <div class="app">
+        <header class="navbar" id="navbar">
+            <div class="nav-inner">
+                <a class="brand" href="../../index.html" aria-label="云海阁 · 返回首页">
+                    <span class="brand-mark" aria-hidden="true">云</span>
+                    <span class="brand-text">云海阁</span>
+                </a>
+                <nav class="nav-links" aria-label="主导航">
+                    <a class="nav-link" href="../../index.html">首页</a>
+                    <a class="nav-link" href="../../archive.html">归档</a>
+                    <a class="nav-link" href="https://space.bilibili.com/234841081" target="_blank" rel="noopener">B站</a>
+                    <a class="nav-link" href="https://github.com/YunShuiFuyao/my-blog" target="_blank" rel="noopener">GitHub</a>
+                    <button class="theme-btn" id="theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式">
+                        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                            <circle cx="12" cy="12" r="4.2"></circle>
+                            <path d="M12 2.2v2.1M12 19.7v2.1M2.2 12h2.1M19.7 12h2.1M5.1 5.1l1.5 1.5M17.4 17.4l1.5 1.5M18.9 5.1l-1.5 1.5M6.6 17.4l-1.5 1.5"></path>
+                        </svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7z"></path>
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="article-toolbar article-toolbar--wide">
+                <a class="btn-back" href="../../index.html">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M15 5l-7 7 7 7"></path>
+                    </svg>
+                    返回列表
+                </a>
+                <button class="btn-ghost" id="copy-link" type="button">复制链接</button>
+            </div>
+
+            <details class="toc-mobile">
+                       <summary>目录 · 7 节</summary>
+                       <ol class="toc-list"><li class="toc-item toc-h2"><a href="#未抵">未抵</a></li><li class="toc-item toc-h2"><a href="#这条路的尽头">这条路的尽头</a></li><li class="toc-item toc-h2"><a href="#双非92-与实习">双非、92 与实习</a></li><li class="toc-item toc-h2"><a href="#路在哪里">路在哪里</a></li><li class="toc-item toc-h2"><a href="#研启序曲">研启序曲</a></li><li class="toc-item toc-h2"><a href="#深夜的自问">深夜的自问</a></li><li class="toc-item toc-h2"><a href="#致敬">致敬</a></li></ol>
+                   </details>
+
+            <div class="post-layout">
+                <article id="article-detail" class="article-surface markdown-body">
+                    <header class="article-header">
+                        <h1>研启序曲</h1>
+                        <div class="article-meta">
+                            <span class="meta-item"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg>2026年11月20日</span>
+                            <span class="meta-sep"></span>
+                            <span class="meta-item"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>3 分钟阅读</span>
+                        </div>
+                        <div class="article-tags">
+        <a class="tag" href="../../index.html?tag=%E9%9A%8F%E7%AC%94">随笔</a><a class="tag" href="../../index.html?tag=%E8%80%83%E7%A0%94">考研</a>
+    </div>
+                    </header>
+                    <h2 id="未抵">未抵</h2>
+<p>我未曾抵达开满荼蘼花的终点（未抵）。</p>
+<p>所以请你要思考：你究竟为什么要考研？</p>
+<p>到底是为了洗刷双非的学历，还是换一个专业、换一条路？</p>
+<p>有老师说过，生化环材这条路，除非真的能一路走到结尾，不然真的不要走。</p>
+<h2 id="这条路的尽头">这条路的尽头</h2>
+<p>我想，就算到了最好的那一批做化学材料的人，不是出国，就是转行，或者去干销售。国内科研平台……懂得都懂。职称晋升体系一眼望不到头，无非同门同室操戈，无非非升即走。</p>
+<h2 id="双非92-与实习">双非、92 与实习</h2>
+<p>第二学历是双非，其实没有第一学历影响大……可视频刷到，都说双非硕不值钱。要真有这个能力，谁不想往更高处考呢？</p>
+<p>大部分情况下，双一流、92（985/211）的学历肯定更好使。但现在大环境整体不好，很多工作原先双一流看不上，也轮不到 92；中小企业真的需要那么多 92 硕博吗？</p>
+<p>我想读一个能找实习的研究生。化学这行找实习意义不大，还不如在学校专心搞学术。如果能换成电子信息大类，如果在读研期间能找到实习——我倒贴钱加班都愿意干。</p>
+<p>逃离原先化工品的毒害，三年如果能顺利毕业，以应届生的身份，至少可以找到一份饿不死的工作。</p>
+<p>这又是在美化自己的道路了。</p>
+<h2 id="路在哪里">路在哪里</h2>
+<p>目前学生思维有点重……无可厚非。实际社会毒打，肯定就业更难。我之前说过，期待环境好基本不可能。考公谁不想考呢？要不是难考，我想谁都愿意找个避风港。体制外终究影响体制内。</p>
+<p>生化环材，我能拼尽全力考到硕博？绝对不可能。我宁可换成同样涉及化学品的集成电路，也不愿意一路走到死。在美国，同类专业的生化环材也是这样，不是转码转行，就是深造读博。至少国外的环境还给高薪，实验室的安全条件、对身体保护还好，经费还足。</p>
+<p>跟生产生活息息相关的，比如农学，我们说都不可能是赚钱路。我作为一个普通家庭的孩子，只想靠自己的双手。</p>
+<p>这条路不通，那条路不通……到底什么路才能走得通呢？现阶段是真一眼看不到头。</p>
+<p>家家有本难念的经，行行都有难处。正所谓道法三千六百门，人人各执一苗根。</p>
+<h2 id="研启序曲">研启序曲</h2>
+<p>接着，是对考研这条路给自己的动员：</p>
+<blockquote>
+<p>日月忽其不淹兮，春与秋其代序。<br>惟草木之零落兮，恐美人之迟暮。<br>弃燕游而笃志兮，秉孤灯以继晷。<br>岂余身之惮劳兮，恐功业之无成。<br>謇吾法夫前修兮，非世俗之所服。<br>虽体解吾犹未变兮，岂余心之可惩？<br>路漫漫其修远兮，吾将上下而求索。<br>不抚壮而弃秽兮，何不改乎此度？</p>
+</blockquote>
+<p><em>（化用《离骚》）</em></p>
+<p>如果连你自己都放弃了，你还会想着成功吗？如果连你自己都不认为自己会成功，你还会向上仰望吗？</p>
+<p>既然你想，那就放手一搏。既然你愿意花无数的时光岁月，那就拼搏。大不了樯橹灰飞烟灭，在这场神战失败，调剂回本专业——至少这一路的颠沛流离，也是生化环材学子尝试出坑的拼搏。</p>
+<p>你自诩为“做题蛆”，你真的有那实力吗？请证明自己。如果一旦沉沦，就会不断被轮回的法则侵蚀。你只为了守护这虚妄梦境看似美好的一切……你不得不行动。</p>
+<p>你到底什么时候才能进步、成长？做题做疯了？还是傻了？焦虑没用，大不了破罐子破摔。还是那句话——你始终是你自己，不必成为谁的影子，谁的光。</p>
+<p>人啊，虽然在能享受的时候没有时间，在有时间的时候身体又跟不上了，这真是个悖论。难受是正常的，但你并不是一个人，不是吗？</p>
+<p>曾经幻想自己有个更厉害的人格，我们说这是没有用的。与其天天内耗、摆烂，不如放手一搏。如果你要往上冲，请你一定要一路生花。</p>
+<h2 id="深夜的自问">深夜的自问</h2>
+<p>谁说 0854（电子信息）不缺努力？那就看看，什么样的程序可以直面我这二十年来最深沉的绝望。</p>
+<p>为什么总是一个人在夜深人静的时候悄悄哭泣？</p>
+<p>为什么明明渴望被爱，却不愿意表达自己？</p>
+<p>为什么明明有自己的人格，却不断哗众取宠、装模作样、矫揉造作？</p>
+<p>总有人把你当傻子，而你却没心没肺？</p>
+<p>为什么明明你想把事情做好，却总做不成？</p>
+<h2 id="致敬">致敬</h2>
+<p>这一路的艰辛，既致敬自己，也致敬明天与未来。</p>
+<p>趁自己眼里还有最后一丝光亮，探索这片星海……那是一个做了很久很久的梦啊。</p>
+
+                    <nav class="prev-next" aria-label="上一篇 / 下一篇">
+        <span class="prev-next-link is-empty"></span>
+        <a class="prev-next-link prev-next-older" href="../../post/existence/">
+               <span class="prev-next-label">更早的一篇 →</span>
+               <span class="prev-next-title">式微，式微！胡不归？</span>
+           </a>
+    </nav>
+                </article>
+
+                <aside class="toc" aria-label="文章目录">
+                       <p class="toc-title">目录</p>
+                       <ol class="toc-list"><li class="toc-item toc-h2"><a href="#未抵">未抵</a></li><li class="toc-item toc-h2"><a href="#这条路的尽头">这条路的尽头</a></li><li class="toc-item toc-h2"><a href="#双非92-与实习">双非、92 与实习</a></li><li class="toc-item toc-h2"><a href="#路在哪里">路在哪里</a></li><li class="toc-item toc-h2"><a href="#研启序曲">研启序曲</a></li><li class="toc-item toc-h2"><a href="#深夜的自问">深夜的自问</a></li><li class="toc-item toc-h2"><a href="#致敬">致敬</a></li></ol>
+                   </aside>
+            </div>
+
+            <section class="comments" id="comments" aria-label="评论">
+                <h2 class="comments-title">评论</h2>
+                <p class="comments-hint">使用 GitHub 账号登录后即可留言，评论会同步到仓库的 Issues。</p>
+                <div class="utterances"></div>
+                <script src="https://utteranc.es/client.js"
+                        repo="YunShuiFuyao/my-blog"
+                        issue-term="pathname"
+                        label="comment"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                </script>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="https://space.bilibili.com/234841081" target="_blank" rel="noopener">Bilibili</a>
+                <a href="https://github.com/YunShuiFuyao/my-blog" target="_blank" rel="noopener">GitHub</a>
+                <a href="../../archive.html">归档</a>
+                <a href="../../tags.html">标签</a>
+                <a href="../../feed.xml">RSS</a>
+            </div>
+            <p>© <span id="year">2026</span> 云水扶摇 · 在这个世界有一束光，就能为任何人照亮</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js" defer></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

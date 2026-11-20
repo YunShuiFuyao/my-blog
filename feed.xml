@@ -5,9 +5,16 @@
         <link>https://yunshuifuyao.github.io/my-blog/</link>
         <description>把代码、阅读，还有那些一闪而过的念头，收进一片云海。</description>
         <language>zh-CN</language>
-        <lastBuildDate>Thu, 05 Nov 2026 04:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 20 Nov 2026 04:00:00 GMT</lastBuildDate>
         <atom:link href="https://yunshuifuyao.github.io/my-blog/feed.xml" rel="self" type="application/rss+xml" />
         
+        <item>
+            <title>研启序曲</title>
+            <link>https://yunshuifuyao.github.io/my-blog/post/yanqi/</link>
+            <guid isPermaLink="true">https://yunshuifuyao.github.io/my-blog/post/yanqi/</guid>
+            <pubDate>Fri, 20 Nov 2026 04:00:00 GMT</pubDate>
+            <description>未抵开满荼蘼花的终点。为什么考研、生化环材的尽头、双非与 92、换一条路，以及写给自己的动员。</description>
+        </item>
         <item>
             <title>式微，式微！胡不归？</title>
             <link>https://yunshuifuyao.github.io/my-blog/post/existence/</link>
